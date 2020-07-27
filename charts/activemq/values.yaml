@@ -1,0 +1,9 @@
+images:
+  repositories:
+    activemq:
+      image: activemq
+      version: latest
+      pullPolicy: Always
+
+activemq:
+  app: activemq

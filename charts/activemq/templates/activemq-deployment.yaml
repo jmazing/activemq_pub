@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.activemq.app}}
+  namespace: {{.Values.global.namespace}}
+  labels:
+    app: {{.Values.activemq.app}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.activemq.app}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.activemq.app}}
+    spec:
+      containers:
+      - name: {{.Values.activemq.app}}
+        image: x.x.x.x:5000/{{.Values.images.repositories.activemq.image}}:{{.Values.images.repositories.activemq.version}}
+        imagePullPolicy: {{.Values.images.repositories.activemq.pullPolicy}}

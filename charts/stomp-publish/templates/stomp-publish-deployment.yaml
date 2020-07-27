@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{index .Values "stomp-publish" "app"}}
+  namespace: {{.Values.global.namespace}}
+  labels:
+    app: {{index .Values "stomp-publish" "app"}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{index .Values "stomp-publish" "app"}}
+  template:
+    metadata:
+      labels:
+        app: {{index .Values "stomp-publish" "app"}}
+    spec:
+      initContainers:
+      - name: init-activemq-service
+        image: x.x.x.x:5000/busybox
+        command: ['sh', '-c', 'until nslookup activemq-service; do echo waiting for activemq-service sleep 2; done;']
+      containers:
+      - name: {{index .Values "stomp-publish" "app"}}
+        image: x.x.x.x:5000/{{index .Values.images.repositories "stomp-publish" "image"}}:{{index .Values.images.repositories "stomp-publish" "version"}}
+        imagePullPolicy: {{index .Values.images.repositories "stomp-publish" "pullPolicy"}}

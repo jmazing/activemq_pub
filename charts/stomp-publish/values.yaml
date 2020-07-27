@@ -1,0 +1,9 @@
+images:
+  repositories:
+    stomp-publish:
+      image: stomp-publish
+      version: latest 
+      pullPolicy: Always
+
+stomp-publish:
+  app: stomp-publish
